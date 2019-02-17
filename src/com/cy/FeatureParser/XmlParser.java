@@ -65,7 +65,7 @@ public class XmlParser extends DefaultHandler {
             //当前widget组件的id以m开头，处理该组件的非id属性
             for (int i = 0, len = attributes.getLength(); i < len; i++) {
                 //只处理该组件的tag属性
-                if (attributes.getLocalName(i).equals("android:tag")) {
+                if (attributes.getQName(i).equals("android:tag")) {
                     Options options = new Options()
                             .addOption(OptionBuilder.withLongOpt("bean").hasArg().create())
                             .addOption(OptionBuilder.withLongOpt("layout").hasArgs().create())
@@ -116,7 +116,7 @@ public class XmlParser extends DefaultHandler {
         for (int i = 0, len = attributes.getLength(); i < len; i++) {
             String str = attributes.getValue(i).toString();
             try {
-                if (attributes.getLocalName(i).equals("android:id")
+                if (attributes.getQName(i).equals("android:id")
                         && attributes.getValue(i).toString().startsWith("@+id/m")) {
 
                     idName = str.substring(str.indexOf('/') + 1, str.length());
@@ -140,11 +140,11 @@ public class XmlParser extends DefaultHandler {
             BeanIncludeXml beanIncludeXml = new BeanIncludeXml();
             for (int i = 0, len = attributes.getLength(); i < len; i++) {
                 String str = attributes.getValue(i).toString();
-                if (attributes.getLocalName(i).equals("layout")) {
+                if (attributes.getQName(i).equals("layout")) {
                     String includeXmlName = attributes.getValue(i).toString().split("/")[1];
                     beanIncludeXml.path = includeXmlName;
                 }
-                if (attributes.getLocalName(i).equals("android:id")) {
+                if (attributes.getQName(i).equals("android:id")) {
                     String includeId = attributes.getValue(i).toString().split("/")[1];
                     beanIncludeXml.id = includeId;
                 }

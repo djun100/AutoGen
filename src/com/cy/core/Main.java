@@ -25,6 +25,7 @@ public class Main {
                 FinalConstants.PATH_BEFORE_GEN +
                 new File(Constants.getParsedJava().getPathNameActivity()).getName();
         CodeWriter.flush(tempPathName);
+        // TODO_cy: 2019-02-18
         String cmd = String.format("diff %s %s -w -D %s"
                 , Constants.getParsedJava().getPathNameActivity(),tempPathName, FinalConstants.DIFF_VERIFI);
         ArrayList<String> results = UtilCmd.exec(cmd);

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@android:color/white"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context="com.tiangou.guider.fragment.CreateAttachInputOrderDialogFra"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+                  android:orientation="vertical"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+        <!--title——退还赠品-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="43dp">
+            <TextView
+                android:id="@+id/mtvTitle"
+                android:layout_centerInParent="true"
+                android:textColor="#666666"
+                android:textSize="17dp"
+                android:text="订单编号"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_alignParentRight="true"
+                android:id="@+id/mrl_close"
+                android:layout_width="45dp"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <View
+            android:background="#e0e0e0"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <!--现金补偿-->
+        <RelativeLayout
+            android:id="@+id/mrl_money"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_marginLeft="14dp"
+                android:layout_centerVertical="true"
+                android:textColor="#222"
+                android:textSize="17dp"
+                android:text="订单编号"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <RelativeLayout
+                android:id="@+id/mrlEt"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:layout_toRightOf="@+id/tv_content"
+                android:layout_width="match_parent"
+                android:layout_marginRight="15dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:inputType="numberDecimal"
+                    android:hint="请输入订单编号"
+                    android:paddingLeft="5dp"
+                    android:background="@android:color/transparent"
+                    android:textColorHint="#cccccc"
+                    android:textColor="#222222"
+                    android:textSize="14dp"
+                    android:id="@+id/met"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+                <RelativeLayout
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/mrl_clear"
+                    android:layout_width="40dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"/>
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+        <View
+            android:background="#e0e0e0"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+        <!--1996fc-->
+        <Button
+            android:id="@+id/mbtn"
+            android:background="#e0e0e0"
+            android:textSize="16dp"
+            android:textColor="#999"
+            android:text="确定"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"/>
+    </LinearLayout>
+</RelativeLayout>

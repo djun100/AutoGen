@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include
+            android:id="@+id/mInTitle"
+            layout="@layout/titlebar_normal_layout"/>
+    <!--订单号-->
+
+    <ScrollView
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:id="@+id/tv_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="订单号    "
+                    android:textColor="#666666"
+                    android:textSize="14dp"/>
+
+                <EditText
+                    android:id="@+id/met_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/tv_order"
+                    android:background="@android:color/transparent"
+                    android:hint="请输入订单号或扫码添加"
+                    android:inputType="number"
+                    android:maxLength="20"
+                    android:text=""
+                    android:textColor="#222222"
+                    android:textSize="14dp"/>
+
+                <LinearLayout
+                    android:id="@+id/mll_scan"
+                    android:tag="-click"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                    />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <com.tiangou.guider.widget.ListViewNoScroll
+                android:id="@+id/mlvOrders"
+                android:dividerHeight="0px"
+                android:divider="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="-layout item_create_attach_record_order -bean String "/>
+
+            <com.tiangou.guider.widget.PullToRefreshRecyclerView
+                    android:tag="-layout item_create_attach_record_order -bean String "
+                    android:paddingTop="10dp"
+                    android:clipChildren="true"
+                    android:clipToPadding="true"
+                    android:id="@+id/mIncome_all_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+            >
+            </com.tiangou.guider.widget.PullToRefreshRecyclerView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e0e0e0"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#eee"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#e0e0e0"/>
+            <LinearLayout
+                    android:id="@+id/mllMain3"
+                    android:tag="-click"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.tiangou.guider.widget.TabView
+                    android:id="@+id/mTabView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                />
+
+                <com.tiangou.guider.widget.ViewPagerInScrollView
+                    android:id="@+id/mViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

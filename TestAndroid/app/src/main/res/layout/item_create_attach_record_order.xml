@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#e0e0e0"/>
+
+    <com.flyco.roundview.RoundTextView
+        android:id="@+id/mtvOrder"
+        android:tag="-click"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="29dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="#f8f8f8"
+        android:textColor="#222"
+        android:textSize="12dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        tools:text="safafsdfdsfsffsdddddddddddddddddddddddddddddddddddddddddddddddd"
+    />
+</RelativeLayout>

@@ -1,0 +1,1 @@
+${statics["com.cy.util.UtilString"].upperFirstLetter("affssadf")}

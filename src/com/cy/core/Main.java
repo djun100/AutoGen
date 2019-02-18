@@ -4,6 +4,7 @@ import com.cy.FeatureParser.ParserCenter;
 import com.cy.common.Constants;
 import com.cy.common.FinalConstants;
 import com.cy.util.UtilCmd;
+import com.cy.util.UtilPlugin;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -21,9 +22,14 @@ public class Main {
 
         CodeWriter.insertDefine();
         CodeWriter.insertInitView();
-        String tempPathName=new File("").getAbsolutePath()+
+//        String tempPathName=new File("").getAbsolutePath()+
+//                FinalConstants.PATH_BEFORE_GEN +
+//                new File(Constants.getParsedJava().getPathNameActivity()).getName();
+
+        String  tempPathName= UtilPlugin.getProjectRootPath(Constants.getAnActionEvent())+"/build"+
                 FinalConstants.PATH_BEFORE_GEN +
                 new File(Constants.getParsedJava().getPathNameActivity()).getName();
+
         CodeWriter.flush(tempPathName);
         // TODO_cy: 2019-02-18
         String cmd = String.format("diff %s %s -w -D %s"

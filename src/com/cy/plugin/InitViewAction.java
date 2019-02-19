@@ -2,6 +2,9 @@ package com.cy.plugin;
 
 import com.cy.MainForm;
 import com.cy.common.Constants;
+import com.cy.controller.SimpleFileController;
+import com.cy.core.Main;
+import com.cy.util.UtilPlugin;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 
@@ -10,6 +13,7 @@ public class InitViewAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
         Constants.setAnActionEvent(e);
-        MainForm.main(null);
+        Main.doWork(UtilPlugin.getCurrFilePath(Constants.getAnActionEvent()), false);
+//        SimpleFileController.loadFileByDialog(e);
     }
 }

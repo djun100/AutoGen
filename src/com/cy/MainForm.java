@@ -7,6 +7,7 @@ import com.cy.manager.DiskManager;
 import com.cy.util.UKeyBoard;
 import com.cy.util.USystem;
 import com.cy.util.UUI;
+import com.cy.util.UtilPlugin;
 import com.google.common.eventbus.Subscribe;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -30,88 +31,10 @@ public class MainForm {
     private JPanel mRootForm;
     private JScrollPane mJScrollPane;
     private JButton mBtnClear;
-    private JComboBox mJComboBoxXmlPath;
-    private JLabel mJLXmlPath;
     private JCheckBox mcb_eclilpse_path;
-    private static String mInputPath;
 
     public MainForm() {
-        String mPropertiesItem = DiskManager.getPropertiesItem();
-
-        if (mPropertiesItem != null && mPropertiesItem.length() != 0) {
-            String[] items = mPropertiesItem.split("\\|");
-            logger.info("items.length:" + items.length);
-            if (items.length > 10) {
-                logger.info("历史记录大于10条，执行删除旧记录");
-                //只保留最新10条历史，新的添加在后面
-                StringBuilder sb = new StringBuilder();
-                int length = items.length;
-                for (int i = length - 10; i < length; i++) {
-                    sb.append(items[i] + "|");
-                }
-                sb.deleteCharAt(sb.length() - 1);
-                mPropertiesItem = sb.toString();
-                items = mPropertiesItem.split("\\|");
-            }
-            logger.info("删除后历史记录大小：" + items.length);
-            for (String item : items) {
-                mJComboBoxXmlPath.insertItemAt(item, 0);
-            }
-        }
-
-        mJComboBoxXmlPath.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                mInputPath = mJComboBoxXmlPath.getEditor().getItem().toString();
-                logger.info("keyReleased " + mInputPath);
-
-                if (mInputPath.length() != 0) {
-                    if (new File(mInputPath).isFile() &&
-                            (mInputPath.endsWith(".xml") || mInputPath.endsWith(".java"))) {
-                        mBtnRun.setEnabled(true);
-                    } else {
-//                        mBtnRun.setEnabled(false);
-                    }
-                } else {
-//                    mBtnRun.setEnabled(false);
-                }
-            }
-        });
-
-//        mBtnRun.setEnabled(false);
-        final String finalMPropertiesItem = mPropertiesItem;
-        mBtnRun.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean hasCurrentPathInItems = false;
-                for (int i = 0; i < mJComboBoxXmlPath.getItemCount(); i++) {
-                    if (mJComboBoxXmlPath.getItemAt(i).toString().equals(mInputPath)) {
-                        hasCurrentPathInItems = true;
-                    }
-                }
-                if (!hasCurrentPathInItems) {
-                    mJComboBoxXmlPath.insertItemAt(mInputPath, 0);
-                    DiskManager.savePropertiesItem(finalMPropertiesItem, mInputPath);
-                }
-
-                Main.doWork(mInputPath, mcb_eclilpse_path.isSelected());
-            }
-        });
-
-        mBtnClear.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mJTPProgress.setText("");
-            }
-        });
-
-        if (USystem.getOsNameVer().toLowerCase().contains("mac")) {
-            // 注册编辑快捷键
-            UKeyBoard.mapKey(new int[]{KeyEvent.VK_META, KeyEvent.VK_A}, new int[]{KeyEvent.VK_CONTROL, KeyEvent.VK_A});
-            UKeyBoard.mapKey(new int[]{KeyEvent.VK_META, KeyEvent.VK_C}, new int[]{KeyEvent.VK_CONTROL, KeyEvent.VK_C});
-            UKeyBoard.mapKey(new int[]{KeyEvent.VK_META, KeyEvent.VK_V}, new int[]{KeyEvent.VK_CONTROL, KeyEvent.VK_V});
-            UKeyBoard.mapKey(new int[]{KeyEvent.VK_META, KeyEvent.VK_X}, new int[]{KeyEvent.VK_CONTROL, KeyEvent.VK_X});
-        }
+        Main.doWork(UtilPlugin.getCurrFilePath(Constants.getAnActionEvent()), mcb_eclilpse_path.isSelected());
     }
 
     public static void main(String[] args) {
@@ -175,10 +98,6 @@ public class MainForm {
         UUI.appendTextNewLine(mainForm.mJTPProgress, event.message);
     }
 
-    public static String getLayoutDir() {
-        return new File(mInputPath).getParentFile().getAbsolutePath();
-    }
-
     private static void setLookAndFeel() {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
@@ -209,19 +128,12 @@ public class MainForm {
         label1.setFont(new Font(label1.getFont().getName(), label1.getFont().getStyle(), 50));
         label1.setText("");
         mRootForm.add(label1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        mJLXmlPath = new JLabel();
-        mJLXmlPath.setText("请输入xml布局文件路径或已配置形如R.layout.xxx布局文件的Activity、Fragment的路径：");
-        mRootForm.add(mJLXmlPath, new GridConstraints(1, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         mJScrollPane = new JScrollPane();
         mRootForm.add(mJScrollPane, new GridConstraints(3, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         mJTPProgress = new JTextPane();
         mJTPProgress.setText("progress:");
         mJScrollPane.setViewportView(mJTPProgress);
-        mJComboBoxXmlPath = new JComboBox();
-        mJComboBoxXmlPath.setEditable(true);
         final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        mJComboBoxXmlPath.setModel(defaultComboBoxModel1);
-        mRootForm.add(mJComboBoxXmlPath, new GridConstraints(2, 0, 1, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         mcb_eclilpse_path = new JCheckBox();
         mcb_eclilpse_path.setSelected(false);
         mcb_eclilpse_path.setText("eclipse目录结构");

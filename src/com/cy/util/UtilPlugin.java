@@ -44,4 +44,11 @@ public class UtilPlugin {
         String basePath = getProject(anActionEvent).getBasePath();
         return basePath;
     }
+
+    public static String getCurrFilePath(AnActionEvent anActionEvent){
+        String currFilePath= getPsiFile(anActionEvent).getVirtualFile().getPath();
+        return currFilePath;
+    }
+
+
 }

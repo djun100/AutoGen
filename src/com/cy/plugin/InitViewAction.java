@@ -9,6 +9,7 @@ import com.intellij.ide.plugins.PluginManager;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.extensions.PluginId;
+import com.intellij.openapi.vfs.VirtualFileManager;
 
 import java.io.File;
 
@@ -21,7 +22,7 @@ public class InitViewAction extends AnAction {
         Main.doWork(UtilPlugin.getCurrFilePath(Constants.getAnActionEvent()), false);
 //        SimpleFileController.loadFileByDialog(e);
 
-
+        VirtualFileManager.getInstance().syncRefresh();
 
     }
 }

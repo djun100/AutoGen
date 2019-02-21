@@ -32,7 +32,7 @@ public class Main {
                 new File(Constants.getParsedJava().getPathNameActivity()).getName();
 
         CodeWriter.flush(tempPathName);
-        // TODO_cy: 2019-02-18
+
         String cmd;
         if (USystem.isWindows()){
             String diffPath=UtilPlugin.getPluginPath("com.cy.plugin.AutoGen")+"/classes/diff.exe";

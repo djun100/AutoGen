@@ -3,6 +3,7 @@ package com.cy.core;
 import com.cy.FeatureParser.ParserCenter;
 import com.cy.common.Constants;
 import com.cy.common.FinalConstants;
+import com.cy.util.USystem;
 import com.cy.util.UtilCmd;
 import com.cy.util.UtilPlugin;
 
@@ -32,8 +33,20 @@ public class Main {
 
         CodeWriter.flush(tempPathName);
         // TODO_cy: 2019-02-18
-        String cmd = String.format("diff %s %s -w -D %s"
-                , Constants.getParsedJava().getPathNameActivity(),tempPathName, FinalConstants.DIFF_VERIFI);
+        String cmd;
+        if (USystem.isWindows()){
+            String diffPath=UtilPlugin.getPluginPath("com.cy.plugin.AutoGen")+"/classes/diff.exe";
+            cmd = String.format("%s %s %s -w -D %s",
+                    diffPath,
+                    Constants.getParsedJava().getPathNameActivity(),
+                    tempPathName,
+                    FinalConstants.DIFF_VERIFI);
+
+        }else {
+            cmd = String.format("diff %s %s -w -D %s"
+                    , Constants.getParsedJava().getPathNameActivity(),tempPathName, FinalConstants.DIFF_VERIFI);
+        }
+
         ArrayList<String> results = UtilCmd.exec(cmd);
 
         CodeWriter.removeLines(results,

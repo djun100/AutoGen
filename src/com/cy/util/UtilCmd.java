@@ -15,7 +15,7 @@ public class UtilCmd {
         try {
             Process process = Runtime.getRuntime().exec(cmd);
 
-            InputStreamReader ir = new InputStreamReader(process.getInputStream());
+            InputStreamReader ir = new InputStreamReader(process.getInputStream(),"UTF-8");
             LineNumberReader input = new LineNumberReader(ir);
 
             String line;

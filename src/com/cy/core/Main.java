@@ -58,6 +58,8 @@ public class Main {
 
         CodeWriter.overWriteFile(Constants.getParsedJava().getPathNameActivity(),
                 CodeWriter.convertContent(results));
+
+        UtilPlugin.refreshFileSystem(Constants.getAnActionEvent());
     }
 
 }

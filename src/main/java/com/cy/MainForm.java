@@ -5,15 +5,12 @@ import com.cy.common.*;
 import com.cy.core.Main;
 import com.cy.manager.DiskManager;
 import com.cy.util.UKeyBoard;
-import com.cy.util.USystem;
 import com.cy.util.UUI;
 import com.cy.util.UtilPlugin;
 import com.google.common.eventbus.Subscribe;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
-import com.jfinal.kit.Kv;
-import com.jfinal.template.Engine;
 
 import javax.swing.*;
 import java.awt.*;

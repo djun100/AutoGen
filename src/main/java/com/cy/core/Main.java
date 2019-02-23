@@ -3,8 +3,8 @@ package com.cy.core;
 import com.cy.FeatureParser.ParserCenter;
 import com.cy.common.Constants;
 import com.cy.common.FinalConstants;
-import com.cy.util.USystem;
 import com.cy.util.UtilCmd;
+import com.cy.util.UtilEnv;
 import com.cy.util.UtilPlugin;
 
 import java.io.File;
@@ -34,7 +34,7 @@ public class Main {
         CodeWriter.flush(tempPathName);
 
         String cmd;
-        if (USystem.isWindows()){
+        if (UtilEnv.isWindows()){
             String diffPath=UtilPlugin.getPluginPath("com.cy.plugin.AutoGen")+"/classes/diff.exe";
             cmd = String.format("%s %s %s -w -D %s",
                     diffPath,

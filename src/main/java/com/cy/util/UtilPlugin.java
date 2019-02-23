@@ -13,6 +13,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 
+import java.io.File;
+
 public class UtilPlugin {
 
     public static Project getProject(AnActionEvent anActionEvent) {
@@ -75,6 +77,15 @@ public class UtilPlugin {
         } else {
             UtilPlugin.getPsiFile(e).getVirtualFile().refresh(false, false);
         }
+    }
+
+    public static void extractJar(){
+        String pluginPath = UtilPlugin.getPluginPath("com.cy.plugin.AutoGen");
+        String pathToExtract = pluginPath + "/AutoGen";
+        String pathTobeExtract = pluginPath + "/lib/AutoGen-0.1.jar";
+        new File(pathToExtract).mkdirs();
+        String cmd = String.format("unzip -o %s -d %s", pathTobeExtract, pathToExtract);
+        UtilCmd.exec(cmd);
 
     }
 }

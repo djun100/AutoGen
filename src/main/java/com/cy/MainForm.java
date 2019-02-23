@@ -1,10 +1,9 @@
 package com.cy;
 
-import com.alee.laf.WebLookAndFeel;
-import com.cy.common.*;
+import com.cy.common.BusEvents;
+import com.cy.common.Constants;
+import com.cy.common.FinalConstants;
 import com.cy.core.Main;
-import com.cy.manager.DiskManager;
-import com.cy.util.UKeyBoard;
 import com.cy.util.UUI;
 import com.cy.util.UtilPlugin;
 import com.google.common.eventbus.Subscribe;
@@ -14,10 +13,8 @@ import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-
-import static com.cy.common.FinalConstants.logger;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by cy on 2016/1/25.

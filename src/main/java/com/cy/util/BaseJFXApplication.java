@@ -1,5 +1,6 @@
 package com.cy.util;
 
+import com.cy.ui.jfx.Controller;
 import com.sun.javafx.application.PlatformImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,17 +10,25 @@ import javafx.stage.Stage;
 import java.net.URL;
 
 public abstract class BaseJFXApplication<T> extends Application {
-
+    private FXMLLoader loader;
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        FXMLLoader loader = new FXMLLoader();
+        loader = new FXMLLoader();
         URL url=getClass().getResource(baseSetFxmlLocation());
         loader.setLocation(url);
         loader.setClassLoader(getClass().getClassLoader());
         Parent root = (Parent)loader.load();
 
         baseStart(primaryStage,root);
+    }
+
+    public FXMLLoader baseGetFxmlLoader() {
+        return loader;
+    }
+
+    public <T> T baseGetController(){
+        T controller = loader.getController();
+        return controller;
     }
 
     public void baseStart() {

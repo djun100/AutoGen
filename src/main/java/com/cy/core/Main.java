@@ -3,6 +3,7 @@ package com.cy.core;
 import com.cy.FeatureParser.ParserCenter;
 import com.cy.common.Constants;
 import com.cy.common.FinalConstants;
+import com.cy.ui.jfx.MainJFXApp;
 import com.cy.util.UtilCmd;
 import com.cy.util.UtilEnv;
 import com.cy.util.UtilPlugin;
@@ -21,6 +22,9 @@ public class Main {
         Constants.clear();
         ParserCenter.parse(pathNameJava,isEclipsePath);
 
+        new MainJFXApp(Constants.getParsedJava().getWidgetsFinal()).baseStart();
+
+        if (true ) return;
         CodeWriter.insertDefine();
         CodeWriter.insertInitView();
 //        String tempPathName=new File("").getAbsolutePath()+

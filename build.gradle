@@ -27,6 +27,7 @@ dependencies {
     compile 'org.freemarker:freemarker:2.3.26-incubating'
     compile 'com.github.javaparser:javaparser-symbol-solver-core:3.6.25'
     compile group: 'commons-cli', name: 'commons-cli', version: '1.4'
+    compile group: 'com.jfinal', name: 'jfinal', version:'3.6'
 }
 
 intellij {

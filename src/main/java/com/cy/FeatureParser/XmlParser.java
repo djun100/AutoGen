@@ -74,7 +74,7 @@ public class XmlParser extends DefaultHandler {
                     LinkedHashMap<String,String[]> parsedCmd=UtilCommonCLI.parseCmd(options,attributes.getValue(i));
 
                     if (parsedCmd.containsKey("layout")){
-                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getmId());
+                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getMId());
                         String[] values=parsedCmd.get("layout");
                         for (int j = 0; j < values.length; j++) {
                             String pathXml = Constants.getParsedJava().getPathNameXml();
@@ -88,7 +88,7 @@ public class XmlParser extends DefaultHandler {
                     }
                     if (parsedCmd.containsKey("bean")) {
                         String[] values=parsedCmd.get("bean");
-                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getmId());
+                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getMId());
                         ((BeanList) beanWidget).setBean(values[0]);
                     }
                     if (parsedCmd.containsKey("click")) {
@@ -122,7 +122,7 @@ public class XmlParser extends DefaultHandler {
                     idName = str.substring(str.indexOf('/') + 1, str.length());
                     beanWidget = new BeanWidget();
                     beanWidget.setType(widgetType);
-                    beanWidget.setmId(idName);
+                    beanWidget.setMId(idName);
                     beanWidget.setIncludeIdName(mIncludeId);
 
                     break;
@@ -158,7 +158,7 @@ public class XmlParser extends DefaultHandler {
         if (!(beanWidget instanceof BeanList)) {
             beanWidget = new BeanList();
             beanWidget.setType(widgetType);
-            beanWidget.setmId(idName);
+            beanWidget.setMId(idName);
             beanWidget.setIncludeIdName(mIncludeId);
         }
         return beanWidget;

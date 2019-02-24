@@ -35,11 +35,11 @@ public class BeanWidget {
         this.content = content;
     }
 
-    public String getmId() {
+    public String getMId() {
         return mId;
     }
 
-    public void setmId(String mId) {
+    public void setMId(String mId) {
         this.mId = mId;
     }
 
@@ -104,7 +104,7 @@ public class BeanWidget {
             System.err.println("getWidgetInfoByIdName beanWidgets is empty");
         }
         for (BeanWidget beanWidget : beanWidgets) {
-            if (beanWidget.getmId().equals(idName)) return beanWidget;
+            if (beanWidget.getMId().equals(idName)) return beanWidget;
         }
         return null;
     }

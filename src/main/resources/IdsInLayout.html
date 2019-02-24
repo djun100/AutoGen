@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script type="text/javascript">
+alert("请认真听讲！！");
+
+function widget(id,checked,name,click)
+{
+    this.id = id;
+    this.checked = checked;
+    this.name = name;
+    this.click = click;
+}
+
+var widgets = new Array()
+
+#for(x : beanWidgets)
+var widget#(for.index)=new widget(true,#(x.mId),#(x.defineName),false);
+widgets.push(widget#(for.index))
+#end
+
+var temp = new Array()
+temp.push("a")
+temp.push("b")
+
+function checkboxOnclick(checkbox,index){
+
+    if (checkbox.checked == true){
+    widgets[index].checked=true
+        alert("checked!!"+index)
+        checkedIds[index] = index
+    }else{
+        alert("not checked!!"+index)
+        checkedIds[index] = -1
+        widgets[index].checked=false
+    }
+}
+
+function generate(){
+    var arrString=JSON.stringify( temp )
+    <!--alert(JSON.stringify( widgets ))-->
+
+    var encodedData = window.btoa(arrString);
+
+    alert(encodedData)
+}
+
+    </script>
+
+<table border="1">
+    <tr>
+        <th width="10%">添加对象</th>
+        <th width="15%">id</th>
+        <th width="10%">name</th>
+        <th width="10%">click</th>
+    </tr>
+    #for(x : beanWidgets)
+    <tr>
+        <td style="text-align:left;"><input name="#(x.mId)" type="checkbox" value="" onclick="checkboxOnclick(this,#(for.index))"/></td>
+        <td style="text-align:left;">R.id.#(x.mId)</td>
+        <td style="text-align:left;">#(x.defineName)</td>
+        <td style="text-align:left;"><input name="#(x.mId)_click" type="checkbox" value=""/></td>
+    </tr>
+    #end
+</table>
+
+<button type="button" onclick="generate()">Generate</button>
+</body>
+</html>
+

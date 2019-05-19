@@ -3,6 +3,7 @@ package com.cy.tiangou.guider.act;
 import android.app.Activity;
 import android.os.Bundle;
 
+import android.view.View;
 import com.cy.testandroid.R;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 public class CreateAttachRecordAct extends Activity {
 
     private List<String> mTabTitles = new ArrayList<>();
+
     /**
      * “赠品”和“抽奖”两个tab页面
      */
@@ -23,5 +25,4 @@ public class CreateAttachRecordAct extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_create_attach_record);
     }
-
 }

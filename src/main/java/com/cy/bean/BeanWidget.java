@@ -26,6 +26,7 @@ public class BeanWidget {
     /*** 该组件在JavaCode中的声明的注释的结束line*/
     private int docEnd = -1;
     private String docContent = "";
+    private boolean enable=true;
 
     public String getContent() {
         return content;
@@ -51,7 +52,7 @@ public class BeanWidget {
         this.type = type;
     }
 
-    public boolean isClickable() {
+    public boolean getClickable() {
         return clickable;
     }
 
@@ -81,6 +82,14 @@ public class BeanWidget {
 
     public void setDocContent(String docContent) {
         this.docContent = docContent;
+    }
+
+    public boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 
     public static BeanWidget getWidgetInfoByDefineName(String defineName, ArrayList<BeanWidget> beanWidgets) {

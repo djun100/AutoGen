@@ -7,20 +7,18 @@
 <body>
 
 <script type="text/javascript">
-alert("请认真听讲！！");
 
-function widget(id,checked,name,click)
-{
+function widget(id,enableWidget,name,enableClickEvent){
     this.id = id;
-    this.checked = checked;
+    this.enableWidget = enableWidget;
     this.name = name;
-    this.click = click;
+    this.enableClickEvent = enableClickEvent;
 }
 
 var widgets = new Array()
 
 #for(x : beanWidgets)
-var widget#(for.index)=new widget(true,#(x.mId),#(x.defineName),false);
+var widget#(for.index)=new widget('#(x.mId)',#(x.enable),'#(x.defineName)',#(x.clickable));
 widgets.push(widget#(for.index))
 #end
 
@@ -28,29 +26,28 @@ var temp = new Array()
 temp.push("a")
 temp.push("b")
 
-function checkboxOnclick(checkbox,index){
-
+function enableWidget(checkbox,index){
     if (checkbox.checked == true){
-    widgets[index].checked=true
-        alert("checked!!"+index)
-        checkedIds[index] = index
+        widgets[index].enableWidget=true
     }else{
-        alert("not checked!!"+index)
-        checkedIds[index] = -1
-        widgets[index].checked=false
+        widgets[index].enableWidget=false
+    }
+}
+
+function enableClickEvent(checkbox,index){
+    if (checkbox.checked == true){
+        widgets[index].enableClickEvent=true
+    }else{
+        widgets[index].enableClickEvent=false
     }
 }
 
 function generate(){
-    var arrString=JSON.stringify( temp )
-    <!--alert(JSON.stringify( widgets ))-->
-
-    var encodedData = window.btoa(arrString);
-
-    alert(encodedData)
+    alert(JSON.stringify( widgets ))
 }
 
-    </script>
+
+</script>
 
 <table border="1">
     <tr>
@@ -61,10 +58,20 @@ function generate(){
     </tr>
     #for(x : beanWidgets)
     <tr>
-        <td style="text-align:left;"><input name="#(x.mId)" type="checkbox" value="" onclick="checkboxOnclick(this,#(for.index))"/></td>
+        <td style="text-align:left;"><input name="#(x.mId)" type="checkbox" value=""
+                                            onclick="enableWidget(this,#(for.index))"
+                                            #if(x.enable)
+                                            checked="checked"
+                                            #end
+        /></td>
         <td style="text-align:left;">R.id.#(x.mId)</td>
         <td style="text-align:left;">#(x.defineName)</td>
-        <td style="text-align:left;"><input name="#(x.mId)_click" type="checkbox" value=""/></td>
+        <td style="text-align:left;"><input name="#(x.mId)_click" type="checkbox" value=""
+                                            onclick="enableClickEvent(this,#(for.index))"
+                                            #if(x.clickable)
+                                            checked="checked"
+                                            #end
+        /></td>
     </tr>
     #end
 </table>

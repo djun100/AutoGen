@@ -3,9 +3,12 @@ package com.cy.util;
 import com.cy.ui.jfx.Controller;
 import com.sun.javafx.application.PlatformImpl;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.net.URL;
 
@@ -18,8 +21,20 @@ public abstract class BaseJFXApplication<T> extends Application {
         loader.setLocation(url);
         loader.setClassLoader(getClass().getClassLoader());
         Parent root = (Parent)loader.load();
-
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                System.out.println("trace -- > 监听到窗口关闭");
+                onClosed();
+            }
+        });
         baseStart(primaryStage,root);
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        System.out.println("trace -- > stop()");
     }
 
     public FXMLLoader baseGetFxmlLoader() {
@@ -39,6 +54,24 @@ public abstract class BaseJFXApplication<T> extends Application {
             }
         });
     }
+
+    protected void onClosed(){
+//        try {
+//            stop();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
+//        Platform.runLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                //更新JavaFX的主线程的代码放在此处
+//                PlatformImpl.exit();
+//                System.out.println("trace -- > perform PlatformImpl.exit()");
+//            }
+//        });
+    }
+
 
     private Stage stage;
     private void initialize() {

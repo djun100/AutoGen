@@ -3,6 +3,9 @@ package com.cy.bean;
 import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AndroidView {
 
     private String id;
@@ -64,5 +67,22 @@ public class AndroidView {
             fieldName.append(chars);
         }
         return fieldName.toString();
+    }
+
+    public static AndroidView convert(BeanWidget beanWidget){
+        AndroidView androidView = new AndroidView("@+id/" + beanWidget.getMId(), beanWidget.getType(), null);
+        androidView.isChoice=beanWidget.getEnable();
+        androidView.isClick=beanWidget.getClickable();
+        androidView.name=beanWidget.getDefineName();
+        return androidView;
+    }
+
+    public static List<AndroidView> convert(List<BeanWidget> beanWidgets){
+        List<AndroidView> androidViews=new ArrayList<>();
+        if (beanWidgets==null) return androidViews;
+        for (BeanWidget beanWidget:beanWidgets){
+            androidViews.add(convert(beanWidget));
+        }
+        return androidViews;
     }
 }

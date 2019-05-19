@@ -1,13 +1,19 @@
 package com.cy.ui.jfx;
 
+import com.alibaba.fastjson.JSON;
+import com.cy.bean.AndroidView;
 import com.cy.bean.BeanWidget;
+import com.cy.bean.BeanWidgetForGen;
+import com.cy.common.Constants;
+import com.cy.controller.SimpleFileController;
+import com.cy.ui.SimpleFormatSelectDialog;
 import com.cy.util.BaseJFXApplication;
 import com.cy.util.UFile;
-import com.jfinal.kit.Base64Kit;
+import com.intellij.openapi.command.WriteCommandAction;
+import com.intellij.util.DocumentUtil;
 import com.jfinal.kit.Kv;
 import com.jfinal.template.Engine;
 import com.jfinal.template.Template;
-import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,9 +21,9 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import netscape.javascript.JSObject;
 
 import java.util.List;
+
 
 public class MainJFXApp extends BaseJFXApplication {
     Controller mController;
@@ -53,13 +59,26 @@ public class MainJFXApp extends BaseJFXApplication {
             public void handle(WebEvent<String> event) {
                 String data = event.getData();
                 System.out.println("alert:"+data);
-                System.out.println("base64解码："+Base64Kit.decodeToStr(data));
+                List<BeanWidgetForGen> beanWidgetForGens = JSON.parseArray(data, BeanWidgetForGen.class);
+                for (int i = 0; i < beanWidgetForGens.size(); i++) {
+                    mBeanWidgets.get(i).setEnable(beanWidgetForGens.get(i).enableWidget);
+                    mBeanWidgets.get(i).setClickable(beanWidgetForGens.get(i).enableClickEvent);
+                }
+                List<AndroidView> androidViews=AndroidView.convert(mBeanWidgets);
+
+                WriteCommandAction.runWriteCommandAction(Constants.getAnActionEvent().getProject(), new Runnable() {
+                    @Override
+                    public void run() {
+                        SimpleFileController.loadFile(Constants.getAnActionEvent(), androidViews);
+                    }
+                });
+
             }
         });
         webEngine.loadContent(resultPageContent);
 
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 500, 600));
+        primaryStage.setScene(new Scene(root, 600, 600));
         primaryStage.show();
 
     }

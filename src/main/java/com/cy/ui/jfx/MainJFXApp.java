@@ -49,7 +49,12 @@ public class MainJFXApp extends BaseJFXApplication {
 //        webEngine.load("http://www.baidu.com");
 
         String templeteWebContent= UFile.readResourcesFileContent("/IdsInLayout.html");
-        Engine engine = Engine.create("myEngine");
+        Engine engine = null;
+        try {
+            engine = Engine.create("myEngine");
+        } catch (Exception e) {
+            engine = Engine.use("myEngine");
+        }
         engine.setDevMode(true);
         engine.setToClassPathSourceFactory();
         Template template = engine.getTemplateByString(templeteWebContent);
@@ -88,4 +93,7 @@ public class MainJFXApp extends BaseJFXApplication {
         return "/sample.fxml";
     }
 
+    public static void main(String[] args) {
+        launch(MainJFXApp.class,null);
+    }
 }

@@ -23,12 +23,9 @@ public class Main {
         ParserCenter.parse(pathNameJava,isEclipsePath);
 
         new MainJFXApp(Constants.getParsedJava().getWidgetsFinal()).baseStart();
-
         if (true ) return;
 
-
-
-
+        
         CodeWriter.insertDefine();
         CodeWriter.insertInitView();
 //        String tempPathName=new File("").getAbsolutePath()+

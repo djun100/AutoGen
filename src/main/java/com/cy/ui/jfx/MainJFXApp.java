@@ -6,14 +6,10 @@ import com.cy.bean.BeanWidget;
 import com.cy.bean.BeanWidgetForGen;
 import com.cy.common.Constants;
 import com.cy.controller.SimpleFileController;
-import com.cy.ui.SimpleFormatSelectDialog;
 import com.cy.util.BaseJFXApplication;
-import com.cy.util.UFile;
+import com.cy.util.UtilTemplete;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.util.DocumentUtil;
 import com.jfinal.kit.Kv;
-import com.jfinal.template.Engine;
-import com.jfinal.template.Template;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -44,21 +40,6 @@ public class MainJFXApp extends BaseJFXApplication {
         WebEngine webEngine = webView.getEngine();
         webEngine.setJavaScriptEnabled(true);
 
-//        String url = MainJFXApp.class.getResource("/IdsInLayout.html").toExternalForm();
-//        webEngine.load(url);
-//        webEngine.load("http://www.baidu.com");
-
-        String templeteWebContent= UFile.readResourcesFileContent("/IdsInLayout.html");
-        Engine engine = null;
-        try {
-            engine = Engine.create("myEngine");
-        } catch (Exception e) {
-            engine = Engine.use("myEngine");
-        }
-        engine.setDevMode(true);
-        engine.setToClassPathSourceFactory();
-        Template template = engine.getTemplateByString(templeteWebContent);
-        String resultPageContent = template.renderToString(Kv.by("beanWidgets", mBeanWidgets));
         webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
             @Override
             public void handle(WebEvent<String> event) {
@@ -80,6 +61,7 @@ public class MainJFXApp extends BaseJFXApplication {
 
             }
         });
+        String resultPageContent = UtilTemplete.getByEnjoy("enjoy/IdsInLayout.html",Kv.by("beanWidgets", mBeanWidgets));
         webEngine.loadContent(resultPageContent);
 
         primaryStage.setTitle("Hello World");

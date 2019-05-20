@@ -1,0 +1,3 @@
+#if(useButterknife)
+@BindView(#(id))
+#end

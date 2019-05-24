@@ -5,6 +5,7 @@ import com.cy.ui.SimpleFormatSelectDialog;
 import com.cy.util.AndroidUtils;
 import com.cy.util.JavaCommonUtils;
 import com.cy.util.UtilPlugin;
+import com.cy.util.UtilTemplete;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
@@ -13,6 +14,7 @@ import com.intellij.psi.search.PsiElementProcessor;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.DocumentUtil;
 import com.intellij.util.IncorrectOperationException;
+import com.jfinal.kit.Kv;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -84,9 +86,24 @@ public class SimpleFileController {
                 continue;
             }
             if (!fieldSet.contains(v.getFieldName())) {
-                String sb = "private " + v.getName() + " " + v.getFieldName() + ";";
-                psiClass.add(elementFactory.createFieldFromText(sb, psiClass));
+//                String sb = "private " + v.getName() + " " + v.getFieldName() + ";";
+                String declare= UtilTemplete.getByEnjoy("enjoy/declare",
+                        Kv.by("id",v.getId())
+                                .set("class",v.getName())
+                                .set("name",v.getFieldName())
+                        .set("useButterknife",true)
+                );
+                //插入字段
+                PsiField psiField=elementFactory.createFieldFromText(declare, psiClass);
+                psiClass.add(psiField);
+                //给字段插入注解
+                PsiAnnotation psiAnnotation = elementFactory.createAnnotationFromText(
+                        UtilTemplete.getByEnjoy("enjoy/declare_butterknife_annotation",
+                                Kv.by("id",v.getId()) .set("useButterknife",true)),psiClass);
+                psiClass.addBefore(psiAnnotation,psiField);
+                //插入import
                 JavaCommonUtils.importAndroidPackage(psiClass, project, v.getName());
+
                 fieldSet.add(v.getFieldName());
             }
             if (!thisSet.contains(v.getFieldName())) {

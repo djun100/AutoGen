@@ -86,9 +86,17 @@
                     android:clipToPadding="true"
                     android:id="@+id/mIncome_all_goods"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-            >
-            </com.tiangou.guider.widget.PullToRefreshRecyclerView>
+                    android:layout_height="match_parent"/>
+
+            <android.support.v7.widget.RecyclerView
+                    android:tag="-layout item_create_attach_record_order -bean String "
+                    android:paddingTop="10dp"
+                    android:clipChildren="true"
+                    android:clipToPadding="true"
+                    android:id="@+id/income_all_goods"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"

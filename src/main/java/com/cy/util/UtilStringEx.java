@@ -1,6 +1,7 @@
 package com.cy.util;
 
-import com.cy.data.UString;
+
+import com.cy.data.UtilString;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.io.InputStreamReader;
 /**
  * Created by cy on 2017/6/30.
  */
-public class UtilString {
+public class UtilStringEx {
     /**首字母大写*/
     public static String upperFirstLetter(String str){
         str =str.replaceFirst(str.substring(0, 1), str.substring(0, 1).toUpperCase())  ;
@@ -23,14 +24,14 @@ public class UtilString {
     }
 
     public static String addTailIfNotHas(String original,String tail){
-        if (UString.isEmpty(original)) return tail;
-        if (UString.isEmpty(tail)) return original;
+        if (UtilString.isEmpty(original)) return tail;
+        if (UtilString.isEmpty(tail)) return original;
         return original.endsWith(tail) ? original : original + tail;
     }
 
     public static String removeTailIfHas(String original,String tail){
-        if (UString.isEmpty(original)) return original;
-        if (UString.isEmpty(tail)) return original;
+        if (UtilString.isEmpty(original)) return original;
+        if (UtilString.isEmpty(tail)) return original;
         return original.endsWith(tail) ? original.substring(0,original.length()-tail.length()) : original;
     }
 
@@ -38,7 +39,7 @@ public class UtilString {
         //resource路径必须/开头
         resourcePathName = resourcePathName.startsWith("/") ? resourcePathName : "/" + resourcePathName;
         StringBuilder stringBuilder = new StringBuilder();
-        InputStream is = UFile.class.getResourceAsStream(resourcePathName);
+        InputStream is = UtilFile.class.getResourceAsStream(resourcePathName);
         BufferedReader br = null;
         try {
             br = new BufferedReader(new InputStreamReader(is));

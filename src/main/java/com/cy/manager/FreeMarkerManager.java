@@ -2,16 +2,14 @@ package com.cy.manager;
 
 import com.cy.bean.BeanIntent;
 import com.cy.bean.BeanWidget;
-import com.cy.util.UtilString;
+import com.cy.util.UtilStringEx;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateHashModel;
 import org.apache.logging.log4j.core.util.StringBuilderWriter;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +38,7 @@ public class FreeMarkerManager {
             filter("/macro_findViewByIds.ftl",new FreeMarkerManager.Builder());
         }
 
-        String templateContent= UtilString.readResourcesFileContent("/template"+nameTemplate);
+        String templateContent= UtilStringEx.readResourcesFileContent("/template"+nameTemplate);
         nameTemplate=nameTemplate.replaceAll("/","");
         getStringTemplateLoader().putTemplate(nameTemplate,templateContent);
         Template template = null;

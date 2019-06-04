@@ -6,7 +6,7 @@ import com.cy.bean.BeanWidget;
 import com.cy.common.Constants;
 import com.cy.util.ProjectPathUtil;
 import com.cy.util.UtilCommonCLI;
-import com.cy.util.UtilString;
+import com.cy.util.UtilStringEx;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.xml.sax.Attributes;
@@ -83,9 +83,9 @@ public class XmlParser extends DefaultHandler {
                             String pathLayout = ProjectPathUtil.getParentDirByName(pathXml, "layout");
                             //去掉.xml
                             ((BeanList) beanWidget).getLayoutTags().add(
-                                    UtilString.removeTailIfHas(values[j],".xml"));
+                                    UtilStringEx.removeTailIfHas(values[j],".xml"));
                             ((BeanList) beanWidget).getLayoutPathNames().add(
-                                    pathLayout + "/" + UtilString.addTailIfNotHas(values[j],".xml"));
+                                    pathLayout + "/" + UtilStringEx.addTailIfNotHas(values[j],".xml"));
                         }
                     }
                     if (parsedCmd.containsKey("bean")) {

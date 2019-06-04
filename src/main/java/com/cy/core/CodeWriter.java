@@ -5,7 +5,7 @@ import com.cy.bean.BeanWidget;
 import com.cy.common.BusEvents;
 import com.cy.common.Constants;
 import com.cy.common.FinalConstants;
-import com.cy.data.UString;
+import com.cy.data.UtilString;
 import com.cy.manager.FreeMarkerManager;
 import com.cy.util.*;
 
@@ -35,7 +35,7 @@ public class CodeWriter {
         String cmd;
         if (UtilEnv.isWindows()){
             UtilPlugin.extractJar();
-            String diffPath=UtilPlugin.getPluginPath("com.cy.plugin.AutoGen")+"\\AutoGen\\classes\\diff.exe";
+            String diffPath=UtilPlugin.getPluginPath("com.cy.plugin.AutoGen")+"\\AutoGen\\diff.exe";
             cmd = String.format("%s %s %s -w -D %s",
                     diffPath,
                     Constants.getParsedJava().getPathNameActivity(),
@@ -105,7 +105,7 @@ public class CodeWriter {
     public static void insertToContents(int lineToAppend, String content){
         //如果数据集用LinkedHashMap，该行会处在最后，但是行号并不是最后一行，造成位置错乱，插入内容跑到原文最后
         Constants.getParsedJava().getActivityContents().put(lineToAppend,
-                UtilString.valueOf(Constants.getParsedJava().getActivityContents().get(lineToAppend))+
+                UtilStringEx.valueOf(Constants.getParsedJava().getActivityContents().get(lineToAppend))+
                         "\n"+content);
     }
 
@@ -159,7 +159,7 @@ public class CodeWriter {
         StringBuilder sb= new StringBuilder();
 
         for (String s: Constants.getParsedJava().getActivityContents().values()){
-            if (UString.notEmpty(s)){
+            if (UtilString.notEmpty(s)){
                 sb.append(s).append("\n");
             }
         }
@@ -169,13 +169,13 @@ public class CodeWriter {
 
     public static void overWriteFile(String pathName,String content){
         new File(pathName).delete();
-        UFile.write_UTF8(new File(pathName),content);
+        UtilFile.write_UTF8(new File(pathName),content);
     }
 
     public static String convertContent(ArrayList<String> javaContent){
         StringBuilder sb= new StringBuilder();
         for (String s: javaContent){
-//            if (UtilString.notEmpty(s)){
+//            if (UtilStringEx.notEmpty(s)){
                 sb.append(s).append("\n");
 //            }
         }

@@ -82,12 +82,10 @@ public class UtilPlugin {
 
     public static void extractJar(){
         String pluginPath = UtilPlugin.getPluginPath("com.cy.plugin.AutoGen");
+
         String pathToExtract = pluginPath + "\\AutoGen";
         String pathTobeExtract = pluginPath + "\\lib\\AutoGen-0.1.jar";
-        new File(pathToExtract).mkdirs();
-        String cmd = String.format("unzip -o %s -d %s", pathTobeExtract, pathToExtract);
-        System.out.println("解压插件jar:"+cmd);
-        UtilCmd.exec(cmd);
 
+        UtilJarDecompress.decompress(pathTobeExtract,pathToExtract);
     }
 }

@@ -18,7 +18,7 @@ dependencies {
 
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.guava:guava:19.0'
-    compile 'com.github.djun100:UtilDeskTop:b9510bd'
+    compile 'com.github.djun100:UtilDeskTop:ffb2af6'
     compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4'
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8'

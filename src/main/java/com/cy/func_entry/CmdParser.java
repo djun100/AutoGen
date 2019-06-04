@@ -5,7 +5,7 @@ import com.cy.func_entry.intent.IntentCmdParser;
 public class  CmdParser{
 
     private static IConcFuncParser selectConcFuncParser(String cmdLine){
-        if (com.cy.data.UString.isEmpty(cmdLine)) return null;
+        if (com.cy.data.UtilString.isEmpty(cmdLine)) return null;
         String[] args = cmdLine.split(" ");
 
         String[] params = new String[args.length - 1];

@@ -42,6 +42,14 @@ function enableClickEvent(checkbox,index){
     }
 }
 
+function enableAllEvent(checkbox){
+    if (checkbox.checked == true){
+
+    }else{
+
+    }
+}
+
 function generate(){
     alert(JSON.stringify( widgets ))
 }
@@ -54,7 +62,7 @@ function generate(){
 
         <th width="15%">id</th>
         <th width="10%">name</th>
-        <th width="10%">enable</th>
+        <th width="10%">enable <input name="enable" type="checkbox" value="" onclick="enableAllEvent(this)"/></th>
         <th width="10%">clickable</th>
     </tr>
     #for(x : beanWidgets)

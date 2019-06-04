@@ -9,7 +9,7 @@ public class ProjectPathUtil {
         String pathLayout;
         ArrayList<String> regexes = new ArrayList<>();
         regexes.add("R.layout.([_0-9a-zA-Z]+)");
-        pathLayout = URegex.dealFile(pathJava, "R.layout.", regexes, "%s");
+        pathLayout = UtilRegex.dealFile(pathJava, "R.layout.", regexes, "%s");
         pathLayout = pathLayout.split("\n")[0];
         String dirMain = getParentDirByName(pathJava, "main");
         if (dirMain != null) {
@@ -74,7 +74,7 @@ public class ProjectPathUtil {
     public static String findPkgName(String pathManifestName) {
         ArrayList<String> regexes = new ArrayList<>();
         regexes.add("package=\"([0-9a-zA-Z.]+)\"");
-        String packageName = URegex
+        String packageName = UtilRegex
                 .dealFile(pathManifestName, "package", regexes, "%s");
         return packageName;
     }

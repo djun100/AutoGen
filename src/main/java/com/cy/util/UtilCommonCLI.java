@@ -1,7 +1,7 @@
 package com.cy.util;
 
-import com.cy.data.UArray;
-import com.cy.data.UList;
+import com.cy.data.UtilArray;
+import com.cy.data.UtilList;
 import org.apache.commons.cli.*;
 
 import java.util.LinkedHashMap;
@@ -56,7 +56,7 @@ public class UtilCommonCLI {
         }
         LinkedHashMap<String,String[]> parsedCmds=new LinkedHashMap<>();
         Option[] parsedOptions=parsedCmd.getOptions();
-        if (!UArray.isEmpty(parsedOptions)){
+        if (!UtilArray.isEmpty(parsedOptions)){
             for (int i = 0; i < parsedOptions.length; i++) {
                 parsedCmds.put(parsedOptions[i].getLongOpt(),parsedOptions[i].getValues());
             }
@@ -66,21 +66,21 @@ public class UtilCommonCLI {
 
     private static String[] formatCommand(String command,String... valueSeprator){
         String[] args;
-        if (UArray.isEmpty(valueSeprator)){
+        if (UtilArray.isEmpty(valueSeprator)){
             args = command.split(" |,");
         }else {
             args = valueSeprator;
         }
-        if (UArray.isEmpty(args)) return null;
+        if (UtilArray.isEmpty(args)) return null;
 
-        List<String> list= UList.arrayToList(args);
+        List<String> list= UtilList.arrayToList(args);
         for (int i = 0; i < list.size(); i++) {
             if ("".equals(list.get(i))){
                 list.remove(i);
                 i--;
             }
         }
-        String[] argsResult= UList.listToArray(list,new String[]{});
+        String[] argsResult= UtilList.listToArray(list,new String[]{});
         return argsResult;
     }
 }

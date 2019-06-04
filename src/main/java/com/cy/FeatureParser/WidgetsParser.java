@@ -3,7 +3,7 @@ package com.cy.FeatureParser;
 import com.cy.bean.BeanIncludeXml;
 import com.cy.bean.BeanWidget;
 import com.cy.common.BusEvents;
-import com.cy.data.UList;
+import com.cy.data.UtilList;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -36,11 +36,11 @@ public class WidgetsParser {
         File pathNameXmlFile=new File(pathNameXml);
 
         List<BeanWidget> list=parse(null,pathNameXml);
-        if (UList.notEmpty(list)) {
+        if (UtilList.notEmpty(list)) {
             result.addAll(list);
         }
         // parse includes
-        if (UList.notEmpty(mIncludeXmlPathNames)){
+        if (UtilList.notEmpty(mIncludeXmlPathNames)){
             String pathLayout=pathNameXmlFile.getParent();
             for (BeanIncludeXml beanIncludeXml: mIncludeXmlPathNames){
                 List<BeanWidget> beanWidgets =parse(beanIncludeXml.id,pathLayout+"/"+beanIncludeXml.path+".xml");

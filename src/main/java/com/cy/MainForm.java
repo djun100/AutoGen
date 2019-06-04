@@ -4,8 +4,8 @@ import com.cy.common.BusEvents;
 import com.cy.common.Constants;
 import com.cy.common.FinalConstants;
 import com.cy.core.Main;
-import com.cy.util.UUI;
 import com.cy.util.UtilPlugin;
+import com.cy.util.UtilUI;
 import com.google.common.eventbus.Subscribe;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
@@ -48,7 +48,7 @@ public class MainForm {
         frame.setTitle(FinalConstants.TITLE);
         MenuBar mb = new MenuBar();
         Menu menuHelp = new Menu("帮助");
-        menuHelp.setFont(UUI.preferFont());
+        menuHelp.setFont(UtilUI.preferFont());
         MenuItem menuItemHelp = new MenuItem("帮助");
         menuHelp.add(menuItemHelp);
         MenuItem menuItemChangeLog = new MenuItem("更新日志");
@@ -68,7 +68,7 @@ public class MainForm {
             }
         });
         MenuItem menuAbout = new MenuItem("关于");
-        menuAbout.setFont(UUI.preferFont());
+        menuAbout.setFont(UtilUI.preferFont());
         menuAbout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,9 +79,9 @@ public class MainForm {
         menuHelp.add(menuAbout);
         mb.add(menuHelp);
         frame.setMenuBar(mb);
-        UUI.setUIFont(UUI.preferFont(), frame);
+        UtilUI.setUIFont(UtilUI.preferFont(), frame);
         mainForm = new MainForm();
-        UUI.initFrame(frame, mainForm.mRootForm);
+        UtilUI.initFrame(frame, mainForm.mRootForm);
         //init frame end
         BusEvents.getBus().register(mainForm);
 
@@ -89,7 +89,7 @@ public class MainForm {
 
     @Subscribe
     public void onEvent(BusEvents.Progress event) {
-        UUI.appendTextNewLine(mainForm.mJTPProgress, event.message);
+        UtilUI.appendTextNewLine(mainForm.mJTPProgress, event.message);
     }
 
     private static void setLookAndFeel() {

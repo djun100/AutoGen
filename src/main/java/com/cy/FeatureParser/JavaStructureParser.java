@@ -1,6 +1,6 @@
 package com.cy.FeatureParser;
 
-import com.cy.data.UList;
+import com.cy.data.UtilList;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.Position;
 import com.github.javaparser.ast.CompilationUnit;
@@ -51,7 +51,7 @@ public class JavaStructureParser {
     }
 
     public Method findMethodByName(String methodName) {
-        if (UList.isEmpty(mMethods)) return null;
+        if (UtilList.isEmpty(mMethods)) return null;
         for (Method method : mMethods) {
             if (method.name.equals(methodName)) {
                 return method;

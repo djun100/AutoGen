@@ -1,6 +1,6 @@
 package com.cy.bean;
 
-import com.cy.data.UString;
+import com.cy.data.UtilString;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class BeanList extends BeanWidget {
 
 
     public String getFindViews() {
-        return UString.isEmpty(findViews)?"":findViews;
+        return UtilString.isEmpty(findViews)?"":findViews;
     }
 
     public BeanList setFindViews(String findViews) {

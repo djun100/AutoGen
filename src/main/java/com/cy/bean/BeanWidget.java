@@ -1,6 +1,6 @@
 package com.cy.bean;
 
-import com.cy.data.UString;
+import com.cy.data.UtilString;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;
@@ -133,7 +133,7 @@ public class BeanWidget {
 
     public void setIncludeIdName(String includeIdName) {
         this.includeIdName = includeIdName;
-        if (!UString.isEmpty(includeIdName)) {
+        if (!UtilString.isEmpty(includeIdName)) {
             setDefineName(includeIdName + "_" + resId);
         } else {
             setDefineName(resId);

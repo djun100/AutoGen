@@ -12,7 +12,7 @@ public class UtilTemplete {
      * @return
      */
     public static String getByEnjoy(String tlPath, Kv kv){
-        String templeteWebContent= UFile.readResourcesFileContent(tlPath);
+        String templeteWebContent= UtilFile.readResourcesFileContent(tlPath);
         Engine engine = null;
         try {
             engine = Engine.create("myEngine");

@@ -3,9 +3,9 @@ package com.cy.FeatureParser;
 import com.cy.bean.ParsedJava;
 import com.cy.common.BusEvents;
 import com.cy.common.Constants;
-import com.cy.data.UString;
+import com.cy.data.UtilString;
 import com.cy.util.ProjectPathUtil;
-import com.cy.util.URegex;
+import com.cy.util.UtilRegex;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class ParserCenter {
         String pathNameManifest = ProjectPathUtil.findPathNameManifest(pathNameJava);
         String pkgName= ProjectPathUtil.findPkgName(pathNameManifest);
 
-        if (!UString.isEmpty(pkgName)){
+        if (!UtilString.isEmpty(pkgName)){
             Constants.getParsedProject().setPackageName(pkgName);
         }
 
@@ -84,8 +84,8 @@ public class ParserCenter {
         ArrayList<String> regexesViewPathName=new ArrayList<>();
 //        regexesViewPathName.add("tools:context");
         regexesViewPathName.add("tools:context=\"([_0-9a-zA-Z.]+)\"");
-        String tempString= URegex.dealFile(pathNameXml,"tools:context",regexesViewPathName,"%s");
-        if (UString.isEmpty(Constants.getParsedJava().getPathNameActivity())) {
+        String tempString= UtilRegex.dealFile(pathNameXml,"tools:context",regexesViewPathName,"%s");
+        if (UtilString.isEmpty(Constants.getParsedJava().getPathNameActivity())) {
             if (tempString.startsWith(".")){
                 //.activity 非全包路径
                 Constants.getParsedJava().setPathNameActivity(ProjectPathUtil.getParentDirByName(pathNameXml,"main")+eclipsePath

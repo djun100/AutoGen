@@ -28,9 +28,9 @@ public class XmlParser extends DefaultHandler {
     private List<BeanWidget> mBeanWidgets;
 
     @Override
-    public void startDocument() throws SAXException {
+    public void startDocument() {
         mIncludeId = mIncludeId == null ? "" : mIncludeId;
-        mBeanWidgets = new ArrayList<BeanWidget>();
+        mBeanWidgets = new ArrayList<>();
     }
 
     /**
@@ -44,8 +44,7 @@ public class XmlParser extends DefaultHandler {
      */
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-
-        add_elelement_to_list_widget(qName, attributes);
+        createBeanWidgetsByXmlNodes(qName, attributes);
     }
 
     /**
@@ -56,13 +55,13 @@ public class XmlParser extends DefaultHandler {
      * @param widgetType 元素
      * @param attributes 元素的所有属性
      */
-    private void add_elelement_to_list_widget(String widgetType, Attributes attributes) {
+    private void createBeanWidgetsByXmlNodes(String widgetType, Attributes attributes) {
 //      parse include widget
         parseIncludeWidget(widgetType, attributes);
 
-        BeanWidget beanWidget = initWidget_idBeginWith_m(widgetType, attributes);
+        BeanWidget beanWidget = findBeanWidgetById(widgetType, attributes);
         if (beanWidget != null) {
-            //当前widget组件的id以m开头，处理该组件的非id属性
+            //处理组件的非id属性
             for (int i = 0, len = attributes.getLength(); i < len; i++) {
                 //只处理该组件的tag属性
                 if (attributes.getQName(i).equals("android:tag")) {
@@ -73,8 +72,11 @@ public class XmlParser extends DefaultHandler {
 
                     LinkedHashMap<String,String[]> parsedCmd=UtilCommonCLI.parseCmd(options,attributes.getValue(i));
 
+                    if (parsedCmd.containsKey("layout")||parsedCmd.containsKey("bean")){
+                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getResId());
+                    }
+
                     if (parsedCmd.containsKey("layout")){
-                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getMId());
                         String[] values=parsedCmd.get("layout");
                         for (int j = 0; j < values.length; j++) {
                             String pathXml = Constants.getParsedJava().getPathNameXml();
@@ -88,7 +90,6 @@ public class XmlParser extends DefaultHandler {
                     }
                     if (parsedCmd.containsKey("bean")) {
                         String[] values=parsedCmd.get("bean");
-                        beanWidget = initBeanListIfNeed(beanWidget, widgetType, beanWidget.getMId());
                         ((BeanList) beanWidget).setBean(values[0]);
                     }
                     if (parsedCmd.containsKey("click")) {
@@ -110,21 +111,19 @@ public class XmlParser extends DefaultHandler {
         }
     }
 
-    private BeanWidget initWidget_idBeginWith_m(String widgetType, Attributes attributes) {
-        String idName = null;
+    private BeanWidget findBeanWidgetById(String widgetType, Attributes attributes) {
         BeanWidget beanWidget = null;
         for (int i = 0, len = attributes.getLength(); i < len; i++) {
-            String str = attributes.getValue(i).toString();
+            String str = attributes.getValue(i);
             try {
                 if (attributes.getQName(i).equals("android:id")
-                        && attributes.getValue(i).toString().startsWith("@+id/m")) {
+                        && attributes.getValue(i).startsWith("@+id/")) {
 
-                    idName = str.substring(str.indexOf('/') + 1, str.length());
+                    String resId = str.substring(str.indexOf('/') + 1);
                     beanWidget = new BeanWidget();
                     beanWidget.setType(widgetType);
-                    beanWidget.setMId(idName);
+                    beanWidget.setResId(resId);
                     beanWidget.setIncludeIdName(mIncludeId);
-
                     break;
                 }
             } catch (Exception e) {
@@ -158,16 +157,16 @@ public class XmlParser extends DefaultHandler {
         if (!(beanWidget instanceof BeanList)) {
             beanWidget = new BeanList();
             beanWidget.setType(widgetType);
-            beanWidget.setMId(idName);
+            beanWidget.setResId(idName);
             beanWidget.setIncludeIdName(mIncludeId);
         }
         return beanWidget;
     }
 
     /**
-     * 只有带id属性，且值以m开头的组件会被添加到这个集合
+     * 带id属性的组件会被添加到这个集合
      */
-    public List<BeanWidget> getmBeanWidgets() {
+    public List<BeanWidget> getBeanWidgets() {
         return mBeanWidgets;
     }
 

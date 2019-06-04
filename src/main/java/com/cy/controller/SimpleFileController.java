@@ -1,12 +1,14 @@
 package com.cy.controller;
 
 import com.cy.bean.AndroidView;
+import com.cy.common.Constants;
 import com.cy.ui.SimpleFormatSelectDialog;
 import com.cy.util.AndroidUtils;
 import com.cy.util.JavaCommonUtils;
 import com.cy.util.UtilPlugin;
 import com.cy.util.UtilTemplete;
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.*;
 import com.intellij.psi.codeStyle.CodeStyleManager;
@@ -26,6 +28,20 @@ import java.util.Set;
  * 控制生成activity中导入控件逻辑控制器
  */
 public class SimpleFileController {
+
+    /**
+     //                List<AndroidView> androidViews=AndroidView.convert(mBeanWidgets);
+     //                genSourceByPsi(androidViews);
+     * @param androidViews
+     */
+    private void genSourceByPsi(List<AndroidView> androidViews) {
+        WriteCommandAction.runWriteCommandAction(Constants.getAnActionEvent().getProject(), new Runnable() {
+            @Override
+            public void run() {
+                SimpleFileController.loadFile(Constants.getAnActionEvent(), androidViews);
+            }
+        });
+    }
 
     public static void loadFileByDialog(AnActionEvent anActionEvent) throws IncorrectOperationException {
 

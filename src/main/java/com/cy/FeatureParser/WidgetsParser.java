@@ -3,7 +3,6 @@ package com.cy.FeatureParser;
 import com.cy.bean.BeanIncludeXml;
 import com.cy.bean.BeanWidget;
 import com.cy.common.BusEvents;
-import com.cy.common.Constants;
 import com.cy.data.UList;
 
 import javax.xml.parsers.SAXParser;
@@ -68,7 +67,7 @@ public class WidgetsParser {
             System.err.println(e.getMessage());
             return null;
         }
-        return xmlParser.getmBeanWidgets();
+        return xmlParser.getBeanWidgets();
     }
 
     public ArrayList<BeanIncludeXml> getIncludeXmlPathNames() {

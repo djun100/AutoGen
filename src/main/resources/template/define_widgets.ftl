@@ -6,15 +6,15 @@
     private ${item.type} ${item.defineName};
 </#if>
 <#if item.bean??>
-    private ArrayList<${item.bean}> mBean${item.mId?substring(1)?cap_first} = new ArrayList<>();
+    private ArrayList<${item.bean}> mBean${item.resId?substring(1)?cap_first} = new ArrayList<>();
 <#--
 三方控件可定制初始化额外变量
 -->
     <#if item.type?contains("PullToRefreshRecyclerView")>
     private WrapRecyclerView mWrapRecyclerView;
-    private AdapterRecycler mAdapter${item.mId?substring(1)?cap_first};
+    private AdapterRecycler mAdapter${item.resId?substring(1)?cap_first};
     <#elseif item.type ?contains("RecyclerView")>
-    private AdapterRecycler mAdapter${item.mId?substring(1)?cap_first};
+    private AdapterRecycler mAdapter${item.resId?substring(1)?cap_first};
     </#if>
 </#if>
 <#if item.clickable><#assign hasClickableWidget = true ></#if>

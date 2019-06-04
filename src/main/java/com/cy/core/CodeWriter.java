@@ -4,15 +4,16 @@ import com.cy.FeatureParser.JavaStructureParser;
 import com.cy.bean.BeanWidget;
 import com.cy.common.BusEvents;
 import com.cy.common.Constants;
+import com.cy.common.FinalConstants;
 import com.cy.data.UString;
 import com.cy.manager.FreeMarkerManager;
-import com.cy.util.UFile;
-import com.cy.util.UtilString;
+import com.cy.util.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 
@@ -20,18 +21,64 @@ import java.util.Map;
  * Created by cy on 2017/3/8.
  */
 public class CodeWriter {
-    public static void insertDefine(){
-        ArrayList<BeanWidget> widgets= (ArrayList<BeanWidget>) Constants.getParsedJava().getWidgetsFinal();
+    public static void genSourceByDiff(List<BeanWidget> beanWidgets){
+
+        CodeWriter.insertDefine(beanWidgets);
+        CodeWriter.insertInitView(beanWidgets);
+
+        String  tempPathName= UtilPlugin.getProjectRootPath(Constants.getAnActionEvent())+"/build"+
+                FinalConstants.PATH_BEFORE_GEN +
+                new File(Constants.getParsedJava().getPathNameActivity()).getName();
+
+        CodeWriter.flush(tempPathName);
+
+        String cmd;
+        if (UtilEnv.isWindows()){
+            UtilPlugin.extractJar();
+            String diffPath=UtilPlugin.getPluginPath("com.cy.plugin.AutoGen")+"\\AutoGen\\classes\\diff.exe";
+            cmd = String.format("%s %s %s -w -D %s",
+                    diffPath,
+                    Constants.getParsedJava().getPathNameActivity(),
+                    tempPathName,
+                    FinalConstants.DIFF_VERIFI);
+
+        }else {
+            cmd = String.format("diff %s %s -w -D %s"
+                    , Constants.getParsedJava().getPathNameActivity(),tempPathName, FinalConstants.DIFF_VERIFI);
+        }
+
+        ArrayList<String> results = UtilCmd.exec(cmd);
+
+        CodeWriter.removeLines(results,
+                "#ifndef "+ FinalConstants.DIFF_VERIFI,
+                "#else /* "+ FinalConstants.DIFF_VERIFI+" */",
+                "#endif /* "+ FinalConstants.DIFF_VERIFI+" */",
+                "#ifdef "+ FinalConstants.DIFF_VERIFI,
+                "#endif /* ! "+ FinalConstants.DIFF_VERIFI+" */");
+
+        CodeWriter.overWriteFile(Constants.getParsedJava().getPathNameActivity(),
+                CodeWriter.convertContent(results));
+
+        UtilPlugin.refreshFileSystem(Constants.getAnActionEvent());
+    }
+
+    /**
+     * @param beanWidgets
+     */
+    public static void insertDefine(List<BeanWidget> beanWidgets){
         String declare= FreeMarkerManager.filter(
-                FreeMarkerManager.TEMPLATE_DEFINE_WIDGETS,new FreeMarkerManager.Builder().setWidgets(widgets));
+                FreeMarkerManager.TEMPLATE_DEFINE_WIDGETS,new FreeMarkerManager.Builder().setWidgets(beanWidgets));
         insertToDefine(declare);
     }
 
-    public static void insertInitView(){
+    /**
+     * @param beanWidgets
+     */
+    public static void insertInitView(List<BeanWidget> beanWidgets){
 
         insertInitView(
                 FreeMarkerManager.filter(FreeMarkerManager.TEMPLATE_INITVIEW,new FreeMarkerManager.Builder()
-                .setWidgets(Constants.getParsedJava().getWidgetsFinal())
+                .setWidgets(beanWidgets)
                 .setView_type(Constants.getParsedJava().getViewType().getType())
                 )
         );

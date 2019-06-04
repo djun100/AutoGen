@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -18,7 +18,7 @@ function widget(id,enableWidget,name,enableClickEvent){
 var widgets = new Array()
 
 #for(x : beanWidgets)
-var widget#(for.index)=new widget('#(x.mId)',#(x.enable),'#(x.defineName)',#(x.clickable));
+var widget#(for.index)=new widget('#(x.resId)',#(x.enable),'#(x.defineName)',#(x.clickable));
 widgets.push(widget#(for.index))
 #end
 
@@ -51,22 +51,23 @@ function generate(){
 
 <table border="1">
     <tr>
-        <th width="10%">添加对象</th>
+
         <th width="15%">id</th>
         <th width="10%">name</th>
-        <th width="10%">click</th>
+        <th width="10%">enable</th>
+        <th width="10%">clickable</th>
     </tr>
     #for(x : beanWidgets)
     <tr>
-        <td style="text-align:left;"><input name="#(x.mId)" type="checkbox" value=""
+        <td style="text-align:left;">R.id.#(x.resId)</td>
+        <td style="text-align:left;">#(x.defineName)</td>
+        <td style="text-align:left;"><input name="#(x.resId)" type="checkbox" value=""
                                             onclick="enableWidget(this,#(for.index))"
                                             #if(x.enable)
                                             checked="checked"
                                             #end
         /></td>
-        <td style="text-align:left;">R.id.#(x.mId)</td>
-        <td style="text-align:left;">#(x.defineName)</td>
-        <td style="text-align:left;"><input name="#(x.mId)_click" type="checkbox" value=""
+        <td style="text-align:left;"><input name="#(x.resId)_click" type="checkbox" value=""
                                             onclick="enableClickEvent(this,#(for.index))"
                                             #if(x.clickable)
                                             checked="checked"

@@ -58,6 +58,7 @@ public class UtilPlugin {
 
     /**
      * 插件安装后，会被解压到插件沙箱
+     * idea comunity 2019 win 不会解压
      *
      * @param pluginId
      * @return C:\Users\xuechao.wang\.IdeaIC2018.3\system\plugins-sandbox\plugins\AutoGen for example.
@@ -81,10 +82,11 @@ public class UtilPlugin {
 
     public static void extractJar(){
         String pluginPath = UtilPlugin.getPluginPath("com.cy.plugin.AutoGen");
-        String pathToExtract = pluginPath + "/AutoGen";
-        String pathTobeExtract = pluginPath + "/lib/AutoGen-0.1.jar";
+        String pathToExtract = pluginPath + "\\AutoGen";
+        String pathTobeExtract = pluginPath + "\\lib\\AutoGen-0.1.jar";
         new File(pathToExtract).mkdirs();
         String cmd = String.format("unzip -o %s -d %s", pathTobeExtract, pathToExtract);
+        System.out.println("解压插件jar:"+cmd);
         UtilCmd.exec(cmd);
 
     }

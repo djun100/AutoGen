@@ -70,7 +70,7 @@ public class AndroidView {
     }
 
     public static AndroidView convert(BeanWidget beanWidget){
-        AndroidView androidView = new AndroidView("@+id/" + beanWidget.getMId(), beanWidget.getType(), null);
+        AndroidView androidView = new AndroidView("@+id/" + beanWidget.getResId(), beanWidget.getType(), null);
         androidView.isChoice=beanWidget.getEnable();
         androidView.isClick=beanWidget.getClickable();
         androidView.name=beanWidget.getDefineName();

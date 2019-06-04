@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class BeanWidget {
 
     /*** id名称*/
-    private String mId;
+    private String resId;
     /*** 被include的父控件的 id名称*/
     private String includeIdName;
     /*** 变量名称*/
@@ -36,12 +36,12 @@ public class BeanWidget {
         this.content = content;
     }
 
-    public String getMId() {
-        return mId;
+    public String getResId() {
+        return resId;
     }
 
-    public void setMId(String mId) {
-        this.mId = mId;
+    public void setResId(String mId) {
+        this.resId = mId;
     }
 
     public String getType() {
@@ -94,7 +94,7 @@ public class BeanWidget {
 
     public static BeanWidget getWidgetInfoByDefineName(String defineName, ArrayList<BeanWidget> beanWidgets) {
         if (Strings.isNullOrEmpty(defineName)) {
-            System.err.println("getWidgetInfoByIdName:mId is empty");
+            System.err.println("getWidgetInfoByIdName:resId is empty");
         }
         if (beanWidgets == null || beanWidgets.size() == 0) {
             System.err.println("getWidgetInfoByIdName beanWidgets is empty");
@@ -107,13 +107,13 @@ public class BeanWidget {
 
     public static BeanWidget getWidgetInfoByIdName(String idName, ArrayList<BeanWidget> beanWidgets) {
         if (Strings.isNullOrEmpty(idName)) {
-            System.err.println("getWidgetInfoByIdName:mId is empty");
+            System.err.println("getWidgetInfoByIdName:resId is empty");
         }
         if (beanWidgets == null || beanWidgets.size() == 0) {
             System.err.println("getWidgetInfoByIdName beanWidgets is empty");
         }
         for (BeanWidget beanWidget : beanWidgets) {
-            if (beanWidget.getMId().equals(idName)) return beanWidget;
+            if (beanWidget.getResId().equals(idName)) return beanWidget;
         }
         return null;
     }
@@ -134,9 +134,9 @@ public class BeanWidget {
     public void setIncludeIdName(String includeIdName) {
         this.includeIdName = includeIdName;
         if (!UString.isEmpty(includeIdName)) {
-            setDefineName(includeIdName + "_" + mId);
+            setDefineName(includeIdName + "_" + resId);
         } else {
-            setDefineName(mId);
+            setDefineName(resId);
         }
     }
 }

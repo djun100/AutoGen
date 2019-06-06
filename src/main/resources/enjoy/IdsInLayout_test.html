@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+    <table border="1">
+        <tr>
+            <th width="15%">id</th>
+            <th width="10%">name</th>
+            <th width="10%">enable <input type="checkbox" v-model="enableAll" @click="funEnableAll"/></th>
+            <th width="10%">clickable <input type="checkbox" v-model="enClickableAll" @click="funEnClickableAll"/></th>
+        </tr>
+
+        <tr v-for="i in items">
+            <td style="text-align:left;">R.id.{{i.resId}}</td>
+            <td style="text-align:left;">{{i.defineName}}</td>
+            <td style="text-align:left;">
+                <input type="checkbox" :value="i.resId" v-model="enable"/></td>
+            <td style="text-align:left;">
+                <input type="checkbox" :value="i.resId" v-model="clickable"/></td>
+        </tr>
+
+    </table>
+    <button type="button" @click="generate">Generate</button>
+</div>
+</body>
+
+<script src="https://unpkg.com/vue"></script>
+<!--<script src="vue.js"></script>-->
+<!--java浠ｇ爜鍙姞杞戒簡鏈枃浠讹紝鏈姞杞絭ue.js鏂囦欢-->
+<script>
+    function widget(id,enableWidget,name,enableClickEvent){
+        this.id = id;
+        this.enableWidget = enableWidget;
+        this.name = name;
+        this.enableClickEvent = enableClickEvent;
+    }
+
+    var widgets = new Array()
+
+    var widget0=new widget('mInTitle',true,'mInTitle',false);
+    widgets.push(widget0)
+    var widget1=new widget('tv_order',true,'tv_order',false);
+    widgets.push(widget1)
+    var widget2=new widget('met_order',true,'met_order',false);
+    widgets.push(widget2)
+    var widget3=new widget('mll_scan',true,'mll_scan',true);
+    widgets.push(widget3)
+    var widget4=new widget('mlvOrders',true,'mlvOrders',false);
+    widgets.push(widget4)
+    var widget5=new widget('mIncome_all_goods',true,'mIncome_all_goods',false);
+    widgets.push(widget5)
+    var widget6=new widget('income_all_goods',true,'income_all_goods',false);
+    widgets.push(widget6)
+    var widget7=new widget('mllMain3',true,'mllMain3',true);
+    widgets.push(widget7)
+    var widget8=new widget('mTabView',true,'mTabView',false);
+    widgets.push(widget8)
+    var widget9=new widget('mViewPager',true,'mViewPager',false);
+    widgets.push(widget9)
+    var widget10=new widget('titlebar_normal_left',true,'mInTitle_titlebar_normal_left',false);
+    widgets.push(widget10)
+    var widget11=new widget('titlebar_normal_back',true,'mInTitle_titlebar_normal_back',false);
+    widgets.push(widget11)
+    var widget12=new widget('titlebar_normal_center',true,'mInTitle_titlebar_normal_center',false);
+    widgets.push(widget12)
+    var widget13=new widget('mTitlebar_normal_title',true,'mInTitle_mTitlebar_normal_title',false);
+    widgets.push(widget13)
+    var widget14=new widget('titlebar_normal_right',true,'mInTitle_titlebar_normal_right',false);
+    widgets.push(widget14)
+    var widget15=new widget('titlebar_normal_right_upload',true,'mInTitle_titlebar_normal_right_upload',false);
+    widgets.push(widget15)
+    var widget16=new widget('titlebar_normal_right_search',true,'mInTitle_titlebar_normal_right_search',false);
+    widgets.push(widget16)
+    var widget17=new widget('titlebar_normal_right_income_info',true,'mInTitle_titlebar_normal_right_income_info',false);
+    widgets.push(widget17)
+    var widget18=new widget('titlebar_normal_right_share',true,'mInTitle_titlebar_normal_right_share',false);
+    widgets.push(widget18)
+    var widget19=new widget('titlebar_normal_right_textview',true,'mInTitle_titlebar_normal_right_textview',false);
+    widgets.push(widget19)
+    var widget20=new widget('titlebar_normal_right_confirm',true,'mInTitle_titlebar_normal_right_confirm',false);
+    widgets.push(widget20)
+
+    new Vue({
+        el: "#app",
+        data: () => ({
+
+            items: [
+                {
+                    resId: "mInTitle",
+                    defineName: "mInTitle",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "tv_order",
+                    defineName: "tv_order",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "met_order",
+                    defineName: "met_order",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "mll_scan",
+                    defineName: "mll_scan",
+                    enable: "true",
+                    clickable: "true"
+                },
+                {
+                    resId: "mlvOrders",
+                    defineName: "mlvOrders",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "mIncome_all_goods",
+                    defineName: "mIncome_all_goods",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "income_all_goods",
+                    defineName: "income_all_goods",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "mllMain3",
+                    defineName: "mllMain3",
+                    enable: "true",
+                    clickable: "true"
+                },
+                {
+                    resId: "mTabView",
+                    defineName: "mTabView",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "mViewPager",
+                    defineName: "mViewPager",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_left",
+                    defineName: "mInTitle_titlebar_normal_left",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_back",
+                    defineName: "mInTitle_titlebar_normal_back",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_center",
+                    defineName: "mInTitle_titlebar_normal_center",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "mTitlebar_normal_title",
+                    defineName: "mInTitle_mTitlebar_normal_title",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right",
+                    defineName: "mInTitle_titlebar_normal_right",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right_upload",
+                    defineName: "mInTitle_titlebar_normal_right_upload",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right_search",
+                    defineName: "mInTitle_titlebar_normal_right_search",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right_income_info",
+                    defineName: "mInTitle_titlebar_normal_right_income_info",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right_share",
+                    defineName: "mInTitle_titlebar_normal_right_share",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right_textview",
+                    defineName: "mInTitle_titlebar_normal_right_textview",
+                    enable: "true",
+                    clickable: "false"
+                },
+                {
+                    resId: "titlebar_normal_right_confirm",
+                    defineName: "mInTitle_titlebar_normal_right_confirm",
+                    enable: "true",
+                    clickable: "false"
+                }
+            ],
+            enable: [],
+            clickable: [],
+            enableAll: false,
+            enClickableAll: false
+        }),
+        methods: {
+            funEnableAll() {
+                this.enable = [];
+                if (this.enableAll) {
+                    for (let i in this.items) {
+                        this.enable.push(this.items[i].resId);
+                    }
+                }
+            },
+            funEnClickableAll() {
+                this.clickable = [];
+                if (this.enClickableAll) {
+                    for (let i in this.items) {
+                        this.enable.push(this.items[i].clickable);
+                    }
+                }
+            },
+            generate(){
+                for (var i = 0; i < widgets.length; i++) {
+                    widgets[i].enableWidget=this.enable[i];
+                    widgets[i].enClickableAll=this.clickable[i];
+                }
+                console.log(JSON.stringify( widgets ))
+                // alert(JSON.stringify( widgets ))
+            }
+        }
+    });
+</script>
+
+</html>

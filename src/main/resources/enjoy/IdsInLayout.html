@@ -1,91 +1,99 @@
 <!DOCTYPE html>
-<html lang="zh-cmn-Hans">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 
-<script type="text/javascript">
+<div id="app">
+    <table border="1">
+        <tr>
+            <th width="15%">id</th>
+            <th width="10%">name</th>
+            <th width="10%">enable <input type="checkbox" v-model="enableAll" @click="funEnableAll"/></th>
+            <th width="10%">clickable <input type="checkbox" v-model="enClickableAll" @click="funEnClickableAll"/></th>
+        </tr>
 
-function widget(id,enableWidget,name,enableClickEvent){
-    this.id = id;
-    this.enableWidget = enableWidget;
-    this.name = name;
-    this.enableClickEvent = enableClickEvent;
-}
+        <tr v-for="i in items">
+            <td style="text-align:left;">R.id.{{i.resId}}</td>
+            <td style="text-align:left;">{{i.defineName}}</td>
+            <td style="text-align:left;">
+                <input type="checkbox" :value="i.resId" v-model="enable"/></td>
+            <td style="text-align:left;">
+                <input type="checkbox" :value="i.resId" v-model="clickable"/></td>
+        </tr>
 
-var widgets = new Array()
+    </table>
+    <button type="button" @click="generate">Generate</button>
+</div>
+</body>
 
-#for(x : beanWidgets)
-var widget#(for.index)=new widget('#(x.resId)',#(x.enable),'#(x.defineName)',#(x.clickable));
-widgets.push(widget#(for.index))
-#end
-
-var temp = new Array()
-temp.push("a")
-temp.push("b")
-
-function enableWidget(checkbox,index){
-    if (checkbox.checked == true){
-        widgets[index].enableWidget=true
-    }else{
-        widgets[index].enableWidget=false
+<script src="https://unpkg.com/vue"></script>
+<!--<script src="vue.js"></script>-->
+<!--java代码只加载了本文件，未加载vue.js文件-->
+<script>
+    function widget(id,enableWidget,name,enableClickEvent){
+        this.id = id;
+        this.enableWidget = enableWidget;
+        this.name = name;
+        this.enableClickEvent = enableClickEvent;
     }
-}
 
-function enableClickEvent(checkbox,index){
-    if (checkbox.checked == true){
-        widgets[index].enableClickEvent=true
-    }else{
-        widgets[index].enableClickEvent=false
-    }
-}
+    var widgets = new Array()
 
-function enableAllEvent(checkbox){
-    if (checkbox.checked == true){
+    #for(x : beanWidgets)
+    var widget#(for.index)=new widget('#(x.resId)',#(x.enable),'#(x.defineName)',#(x.clickable));
+    widgets.push(widget#(for.index))
+    #end
 
-    }else{
+    new Vue({
+        el: "#app",
+        data: () => ({
 
-    }
-}
-
-function generate(){
-    alert(JSON.stringify( widgets ))
-}
-
-
+            items: [
+                #for(x : beanWidgets)
+                    {
+                        resId: "#(x.resId)",
+                        defineName: "#(x.defineName)",
+                        enable: "#(x.enable)",
+                        clickable: "#(x.clickable)"
+                    }#if(for.index==for.size-1)#else,#end
+                #end
+            ],
+            enable: [],
+            clickable: [],
+            enableAll: false,
+            enClickableAll: false
+        }),
+        methods: {
+            funEnableAll() {
+                this.enable = [];
+                if (this.enableAll) {
+                    for (let i in this.items) {
+                        this.enable.push(this.items[i].resId);
+                    }
+                }
+            },
+            funEnClickableAll() {
+                this.clickable = [];
+                if (this.enClickableAll) {
+                    for (let i in this.items) {
+                        this.enable.push(this.items[i].clickable);
+                    }
+                }
+            },
+            generate(){
+               for (var i = 0; i < widgets.length; i++) {
+                   widgets[i].enableWidget=this.enable[i];
+                   widgets[i].enClickableAll=this.clickable[i];
+               }
+               console.log(JSON.stringify( widgets ))
+               // alert(JSON.stringify( widgets ))
+            }
+        }
+    });
 </script>
 
-<table border="1">
-    <tr>
-
-        <th width="15%">id</th>
-        <th width="10%">name</th>
-        <th width="10%">enable <input name="enable" type="checkbox" value="" onclick="enableAllEvent(this)"/></th>
-        <th width="10%">clickable</th>
-    </tr>
-    #for(x : beanWidgets)
-    <tr>
-        <td style="text-align:left;">R.id.#(x.resId)</td>
-        <td style="text-align:left;">#(x.defineName)</td>
-        <td style="text-align:left;"><input name="#(x.resId)" type="checkbox" value=""
-                                            onclick="enableWidget(this,#(for.index))"
-                                            #if(x.enable)
-                                            checked="checked"
-                                            #end
-        /></td>
-        <td style="text-align:left;"><input name="#(x.resId)_click" type="checkbox" value=""
-                                            onclick="enableClickEvent(this,#(for.index))"
-                                            #if(x.clickable)
-                                            checked="checked"
-                                            #end
-        /></td>
-    </tr>
-    #end
-</table>
-
-<button type="button" onclick="generate()">Generate</button>
-</body>
 </html>
 

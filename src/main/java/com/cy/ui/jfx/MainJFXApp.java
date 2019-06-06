@@ -47,6 +47,7 @@ public class MainJFXApp extends BaseJFXApplication {
             }
         });
         String resultPageContent = UtilTemplete.getByEnjoy("enjoy/IdsInLayout.html",Kv.by("beanWidgets", mBeanWidgets));
+        System.out.println(resultPageContent);
         webEngine.loadContent(resultPageContent);
 
         primaryStage.setTitle("Select the widgets needed,then click 'generate'");
